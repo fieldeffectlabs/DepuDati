@@ -1,0 +1,194 @@
+<!--A Design by W3layouts
+Author: W3layout
+Author URL: http://w3layouts.com
+License: Creative Commons Attribution 3.0 Unported
+License URL: http://creativecommons.org/licenses/by/3.0/
+-->
+<!DOCTYPE HTML>
+<html ng-app>
+<head>
+<title>DepuDati</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,700' rel='stylesheet' type='text/css'>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.0-beta.8/angular.min.js"></script>
+
+<script src="script.js"></script>
+<link href="web/css/style.css" rel="stylesheet" type="text/css" media="all" />
+<script src="web/js/Chart.js"></script>
+</head>
+<body ng-controller="Camera">
+<div class="wrap">
+	<!-- start grids_of_3 -->
+	<div class="grids_of_3">
+		<div class="grid1_of_3">
+			<div class="grid_img">
+				<img src="web/images/pic1.jpg" alt=""/>
+						<div class="list_top">
+							<h4></h4>
+							<span></span>
+						</div>
+			</div>
+			<div class="menu_box_list">
+				<ul>
+					<li  class="active" ng-click="resetSelectedItem()"><a href="#"><span>Cerca Deputati</span> <i class="settings"> </i><div class="clear"></div> </a></li>
+					<li><a href="#"><span>Classifiche</span> <i class="location"> </i><div class="clear"></div> </a></li>
+			  		<li><a href="#"><span>Informazioni su</span> <i class="food"> </i><div class="clear"></div> </a></li>
+				</ul>
+				<div class="clear"></div>
+			</div>
+		</div>
+		<div class="grid1_of_3 left" ng-show="selectedItem == null">
+			<div class="btn_style bg">
+				<h4>Cerca Deputato</h4>
+			</div>
+			<div class="login_form">
+				<form>
+					<input type="text" class="textbox" placeholder="Nome o cognome" ng-model="searchKey">
+				</form>
+				<ul class="login_b">
+					<li><p style="font-size:10px;" ng-show="filteredDetails.length > 0">{{filteredDetails.length}} Deputati</p><p style="font-size:10px;" ng-hide="filteredDetails.length > 0">Cerca tra {{fullDetails.length}} Deputati</p></li>
+				</ul>
+			</div>
+			<div class="menu_box_list">
+				<ul>
+					<li ng-repeat="deputato in filteredDetails" ng-click="selectItem(deputato.id)"><a href="#scheda"><span style="font-size:10px;">{{deputato.nome + ' ' + deputato.cognome}}</span> <i class=""> </i><div class="clear"></div></a></li>
+				</ul>
+				<div class="clear"></div>
+			</div>
+		</div>
+
+
+		<div class="grid1_of_3 left" ng-show="selectedItem != null" id="scheda">
+			<div class="btn_style bg1">
+				<h4>Scheda Deputato</h4>
+			</div>
+			<div class="grid_img1">
+				<img src="web/images/pic2.jpg" alt=""/>
+			</div>
+				<div class="grid_user">
+					<div class="grid_list">
+						<div class="list_img">
+							<a style="float:left;"><img style="width:70px;" src="{{selectedItem.foto}}" alt=""/></a>
+						</div>
+						<div class="list_text">
+							<h4 style="float:right; margin-right:10px;"><a href="#">{{selectedItem.nome + ' ' + selectedItem.cognome}}</a></h4>
+							<span style="float:right; margin-right:10px;" class="new">{{'di ' + selectedItem.luogoNascita}}</span>
+						</div>
+					</div>
+				</div>
+			<div class="grids_left">
+				<div class="grid_left">
+					<p>Presenze</p>
+					<span>345</span>
+				</div>
+				<div class="grid_left">
+					<p>Assenze</p>
+					<span>498</span>
+				</div>
+				<div class="clear"></div>
+			<div class="follow">
+				<a href="#dati">Dati</a>
+			</div>
+			<div class="follow">
+				<a href="#statistiche">Statistiche</a>
+			</div>
+			</div>
+		</div>
+		<div class="grid1_of_3 left" ng-show="selectedItem != null" id="dati">
+			<div class="btn_style bg4">
+				<h4>Dati e Statistiche</h4>
+			</div>
+			<div class="locate" style="font-size:12px;">
+				<a><p class="new">{{selectedItem.gruppo}})</p></a>
+				<a><p class="new">Nato il {{selectedItem.dataNascita}} a {{selectedItem.luogoNascita}}</p></a>
+				<a><p class="new">Appartenente al collegio {{selectedItem.collegio}}</p></a>
+				<div style="margin-top:20px;">
+				<a href="{{selectedItem.facebook}}" ng-show="selectedItem.facebook"><p class="new sociale">Link alla pagina Facebook</p></a>
+				<a href="{{selectedItem.twitter}}" ng-show="selectedItem.twitter"><p class="new">Link al profilo Twitter</p></a>
+				<a href="{{selectedItem.youtube}}" ng-show="selectedItem.youtube"><p class="new">Link al canale Youtube</p></a>
+				</div>
+				<div style="margin-top:20px;">
+				<a><p class="new sociale">Ha votato {{selectedItem.stat.voti}} volte</p></a>
+				<a href="{{selectedItem.twitter}}" ng-show="selectedItem.twitter"><p class="new">Link al profilo Twitter</p></a>
+				<a href="{{selectedItem.youtube}}" ng-show="selectedItem.youtube"><p class="new">Link al canale Youtube</p></a>
+				</div>
+				<a><span class="mark"></span></a>
+				<div class="clear"></div>
+			</div>
+		</div>
+
+		<div class="grid1_of_3 left" ng-show="selectedItem != null">
+			<div class="btn_style bg2">
+				<ul>
+					<li>
+						<p>Votazioni</p>
+						<span>135</span>
+					</li>
+					<li>
+						<p>Effettuate</p>
+						<span>75</span>
+					</li>
+				</ul>
+			</div>
+			<div class="chart">
+			<canvas id="canvas" height="250" width="295" style="margin-top: 30px;"></canvas>
+				<script>
+						var lineChartData = {
+						labels : ["Gennaio","Febbraio","Marzo","Aprile","Maggio","Giugno","Luglio"],
+						datasets : [
+							{
+								fillColor : "rgba(220,220,220,0.5)",
+								strokeColor : "rgba(220,220,220,1)",
+								pointColor : "rgba(220,220,220,1)",
+								pointStrokeColor : "#fff",
+								data : [65,59,90,81,56,55,40]
+							},
+							{
+								fillColor : "rgba(205,187,151,0.5)",
+								strokeColor : "rgba(205,187,151,1)",
+								pointColor : "rgba(205,187,151,1)",
+								pointStrokeColor : "#fff",
+								data : [28,48,40,19,96,27,100]
+							}
+						]
+
+					}
+
+				var myLine = new Chart(document.getElementById("canvas").getContext("2d")).Line(lineChartData);
+
+				</script>
+			</div>
+		</div>
+		<div class="grid1_of_3 left">
+			<div class="btn_style bg3">
+				<h4>Classifica</h4>
+			</div>
+			<div class="loader_main">
+
+			</div>
+		</div>
+		<div class="grid1_of_3 left">
+			<div class="btn_style bg4">
+				<h4>Collegamenti</h4>
+			</div>
+			<div class="locate">
+				<a href="#"><p class="new">Pagina personale</p></a>
+				<a href="#"><span class="mark"></span></a>
+				<div class="clear"></div>
+			</div>
+			<div class="buttons">
+				<button class="bg1">Button</button>
+				<button class="bg2">Button</button>
+				<button class="bg3">Button</button>
+				<button class="bg4">Button</button>
+			</div>
+		</div>
+	<div class="clear"></div>
+	<div class="copy">
+		<p class="link">© DepuDati | Realizzato da<a href="http://www.fieldeffectlabs.org/"> FieldEffectLabs</a></p>
+	</div>
+	</div>
+</div>
+</body>
+</html>
